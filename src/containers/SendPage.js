@@ -77,7 +77,7 @@ class SendPage extends React.Component {
       confirmSend: false,
       addressReceive: '',
       sendValue: 1,
-      sendFee: 0.000001,
+      sendFee: 0.0001,
       progressValue: 0,
       sendTxid: '',
       sendCurrencyValue: props.context.currencyValue
@@ -232,8 +232,9 @@ class SendPage extends React.Component {
 
     // Convert how much we wanna send
     // to satoshis
-    const satoshisToSend = Math.round(value * 100000000)
-    const satoshisfeesToSend = Math.round(fee) * 2 // fees already in satoshis, multiply by 2 so faster tx confirmation
+      // It seems the explorer is returning faulty fee value so until is fixed will hardcore the value:
+    const satoshisToSend = Math.round(value * 100000000) - 10000;
+    const satoshisfeesToSend = 10000;// Math.round(0.0001) * 2 // fees already in satoshis, multiply by 2 so faster tx confirmation
 
     // Reset zen send progress
     this.setProgressValue(1)
